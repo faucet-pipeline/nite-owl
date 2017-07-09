@@ -1,0 +1,29 @@
+{
+  "name": "nite-owl",
+  "version": "1.0.0",
+  "description": "A debounced EventEmitter that watches for file changes",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint index.js && echo ✓"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/faucet-pipeline/nite-owl.git"
+  },
+  "author": "Lucas Dohmen <lucas@dohmen.io> (https://lucas.dohmen.io/)",
+  "contributors": [
+    "FND"
+  ],
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/faucet-pipeline/nite-owl/issues"
+  },
+  "homepage": "https://github.com/faucet-pipeline/nite-owl#readme",
+  "dependencies": {
+    "chokidar": "^1.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.0.0",
+    "eslint-config-fnd": "^1.1.1"
+  }
+}
