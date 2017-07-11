@@ -4,7 +4,7 @@ let chokidar = require("chokidar");
 let EventEmitter = require("events");
 let path = require("path");
 
-module.exports = (rootDir, delay = 10) => {
+module.exports = (rootDir, delay = 50) => {
 	let watcher = chokidar.watch(`${rootDir}/**`, {});
 	let emitter = new EventEmitter();
 
