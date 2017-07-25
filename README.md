@@ -18,7 +18,7 @@ watch(myFavoriteDirectory)
 ```
 
 Now, whenever something about the files in `myFavoriteDirectory` changes, the
-`myFavoriteFunction` will be called with the path to the file that changed.
+`myFavoriteFunction` will be called with the paths of any files that changed.
 
 This notification is debounced: You only get notified at most once every 50
 milliseconds. You can adjust that value by providing a second argument to the
