@@ -8,19 +8,29 @@ module.exports = (rootDir, delay = 50) => {
 	let watcher = chokidar.watch(`${rootDir}/**`, {});
 	let emitter = new EventEmitter();
 
-	// NB: potentially invoked multiple times for a single change
-	let notify = debounce(delay, filepath => {
-		filepath = path.resolve(rootDir, filepath);
-		emitter.emit("edit", filepath);
+	let notify = notifier(delay, filepaths => {
+		filepaths = Array.from(filepaths).map(fp => path.resolve(rootDir, fp));
+		emitter.emit("edit", filepaths);
 	});
-
 	watcher.on("ready", _ => {
 		watcher.on("add", notify).
 			on("change", notify).
 			on("unlink", notify);
 	});
+
 	return emitter;
 };
+
+function notifier(delay, callback) {
+	let files = new Set();
+	let notify = debounce(delay, callback);
+
+	// NB: potentially invoked multiple times for a single change
+	return filepath => {
+		files.add(filepath);
+		notify(files);
+	};
+}
 
 // adapted from uitil <https://github.com/FND/uitil>
 function debounce(delay, fn) {
