@@ -29,7 +29,7 @@ function notifier(delay, callback) {
 	return filepath => {
 		files.add(filepath);
 		notify(files);
-		files.clear();
+		files = new Set();
 	};
 }
 
