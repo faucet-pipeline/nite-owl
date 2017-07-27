@@ -1,6 +1,6 @@
 {
   "name": "nite-owl",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A debounced EventEmitter that watches for file changes",
   "main": "index.js",
   "scripts": {
@@ -23,8 +23,8 @@
     "chokidar": "^1.7.0"
   },
   "devDependencies": {
-    "eslint": "^4.0.0",
+    "eslint": "^4.3.0",
     "eslint-config-fnd": "^1.1.1",
-    "release-util-fnd": "^1.0.0"
+    "release-util-fnd": "^1.0.2"
   }
 }
