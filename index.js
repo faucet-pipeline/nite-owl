@@ -9,7 +9,7 @@ module.exports = (rootDir, delay = 50) => {
 	let emitter = new EventEmitter();
 
 	let notify = notifier(delay, filepaths => {
-		filepaths = Array.from(filepaths).map(fp => path.resolve(rootDir, fp));
+		filepaths = Array.from(filepaths);
 		emitter.emit("edit", filepaths);
 	});
 	watcher.on("ready", _ => {
