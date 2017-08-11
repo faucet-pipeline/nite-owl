@@ -4,8 +4,13 @@ let chokidar = require("chokidar");
 let EventEmitter = require("events");
 let path = require("path");
 
-module.exports = (rootDir, delay = 50) => {
-	let watcher = chokidar.watch(`${rootDir}/**`, {});
+module.exports = (rootDirs, delay = 50) => {
+	if(!rootDirs.pop) {
+		rootDirs = [rootDirs];
+	}
+
+	let patterns = rootDirs.map(dir => path.resolve(dir, "**"));
+	let watcher = chokidar.watch(patterns);
 	let emitter = new EventEmitter();
 
 	let notify = notifier(delay, filepaths => {
