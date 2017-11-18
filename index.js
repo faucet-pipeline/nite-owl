@@ -4,6 +4,13 @@ let chokidar = require("chokidar");
 let EventEmitter = require("events");
 let path = require("path");
 
+class TooManyFilesError extends Error {
+	constructor(...params) {
+		super(...params);
+		this.code = "ERR_TOO_MANY_FILES";
+	}
+};
+
 module.exports = (rootDirs, delay = 50) => {
 	if(!rootDirs.pop) {
 		rootDirs = [rootDirs];
@@ -21,6 +28,17 @@ module.exports = (rootDirs, delay = 50) => {
 		watcher.on("add", notify).
 			on("change", notify).
 			on("unlink", notify);
+	}).on("error", err => {
+		if(err.code === "ENOSPC") {
+			err = new TooManyFilesError("You are watching too many files");
+		}
+
+		// Emit the error if someone is listening. Otherwise throw it.
+		if(emitter.listenerCount("error") > 0) {
+			emitter.emit("error", err);
+		} else {
+			throw err;
+		}
 	});
 
 	return emitter;

@@ -11,10 +11,11 @@ ourselves. We simply use [chokidar](https://github.com/paulmillr/chokidar).
 Using nite-owl basically comes down to this:
 
 ```js
-let watch = require('nite-owl')
+let watch = require("nite-owl");
 
 watch(myFavoriteDirectory)
-    .on('edit', myFavoriteFunction)
+    .on("edit", myFavoriteFunction)
+    .on("error", myErrorFunction);
 ```
 
 Now, whenever something about the files in `myFavoriteDirectory` changes, the
@@ -23,6 +24,23 @@ Now, whenever something about the files in `myFavoriteDirectory` changes, the
 This notification is debounced: You only get notified at most once every 50
 milliseconds. You can adjust that value by providing a second argument to the
 watch function.
+
+The error callback will be called, when watching the files resulted in an
+error. The most common error is the `TooManyFilesError` (it has the code
+`ERR_TOO_MANY_FILES`). It occurs on Linux when you watch too many files. In this
+case you have to either increase the inotify limits or choose to watch less
+files. An error handler could look like this:
+
+```js
+watch(myFavoriteDirectory).on("error", err => {
+	if(err.code === "ERR_TOO_MANY_FILES") {
+		console.error("Watching too many files");
+		process.exit(1);
+	} else {
+		throw err;
+	}
+});
+```
 
 ## License
 
