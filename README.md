@@ -11,11 +11,11 @@ ourselves. We simply use [chokidar](https://github.com/paulmillr/chokidar).
 Using nite-owl basically comes down to this:
 
 ```js
-let watch = require('nite-owl')
+let watch = require("nite-owl");
 
 watch(myFavoriteDirectory)
-    .on('edit', myFavoriteFunction)
-    .on('error', myErrorFunction);
+    .on("edit", myFavoriteFunction)
+    .on("error", myErrorFunction);
 ```
 
 Now, whenever something about the files in `myFavoriteDirectory` changes, the
@@ -32,14 +32,14 @@ case you have to either increase the inotify limits or choose to watch less
 files. An error handler could look like this:
 
 ```js
-watch(myFavoriteDirectory).on('error', (err) => {
-    if(err.code === 'ERR_TOO_MANY_FILES') {
-        console.error('Watching too many files');
-        process.exit(1);
-    } else {
-        throw err;
-    }
-})
+watch(myFavoriteDirectory).on("error", err => {
+	if(err.code === "ERR_TOO_MANY_FILES") {
+		console.error("Watching too many files");
+		process.exit(1);
+	} else {
+		throw err;
+	}
+});
 ```
 
 ## License
