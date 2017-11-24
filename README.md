@@ -1,5 +1,8 @@
 # nite-owl
 
+[![Build
+Status](https://travis-ci.org/faucet-pipeline/nite-owl.svg?branch=master)](https://travis-ci.org/faucet-pipeline/nite-owl)
+
 You need to watch a directory for changes, but don't want to be notified all the
 time? Try nite-owl.
 
