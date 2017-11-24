@@ -1,5 +1,6 @@
 # nite-owl
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/faucet-pipeline/nite-owl.svg)](https://greenkeeper.io/)
 [![Build
 Status](https://travis-ci.org/faucet-pipeline/nite-owl.svg?branch=master)](https://travis-ci.org/faucet-pipeline/nite-owl)
 
