@@ -11,9 +11,14 @@ class TooManyFilesError extends Error {
 	}
 };
 
-module.exports = (rootDirs, delay = 50) => {
+module.exports = (rootDirs, { delay = 50, suppressReporting }) => {
 	if(!rootDirs.pop) {
 		rootDirs = [rootDirs];
+	}
+
+	if(!suppressReporting) {
+		let separator = rootDirs.length === 1 ? " " : "\n… ";
+		console.error("monitoring file system at" + separator + rootDirs.join(separator));
 	}
 
 	let patterns = rootDirs.map(dir => path.resolve(dir, "**"));
