@@ -46,7 +46,14 @@ module.exports = (rootDirs, { delay = 50, suppressReporting }) => {
 		}
 	});
 
-	return emitter;
+	return {
+		on(name, fn) {
+			emitter.on(name, fn);
+		},
+		terminate() {
+			watcher.close();
+		}
+	};
 };
 
 function notifier(delay, callback) {
