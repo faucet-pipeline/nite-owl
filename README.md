@@ -1,8 +1,7 @@
 # nite-owl
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/faucet-pipeline/nite-owl.svg)](https://greenkeeper.io/)
-[![Build
-Status](https://travis-ci.org/faucet-pipeline/nite-owl.svg?branch=master)](https://travis-ci.org/faucet-pipeline/nite-owl)
+[![Build Status](https://travis-ci.org/faucet-pipeline/nite-owl.svg?branch=master)](https://travis-ci.org/faucet-pipeline/nite-owl)
 
 You need to watch a directory for changes, but don't want to be notified all the
 time? Try nite-owl.
@@ -17,9 +16,9 @@ Using nite-owl basically comes down to this:
 ```js
 let watch = require("nite-owl");
 
-watch(myFavoriteDirectory)
-    .on("edit", myFavoriteFunction)
-    .on("error", myErrorFunction);
+watch(myFavoriteDirectories).
+    on("edit", myFavoriteFunction).
+    on("error", myErrorFunction);
 ```
 
 Now, whenever something about the files in `myFavoriteDirectory` changes, the
@@ -36,14 +35,15 @@ case you have to either increase the inotify limits or choose to watch less
 files. An error handler could look like this:
 
 ```js
-watch(myFavoriteDirectory).on("error", err => {
-	if(err.code === "ERR_TOO_MANY_FILES") {
-		console.error("Watching too many files");
-		process.exit(1);
-	} else {
-		throw err;
-	}
-});
+watch(myFavoriteDirectories).
+    on("error", err => {
+        if(err.code === "ERR_TOO_MANY_FILES") {
+            console.error("Watching too many files");
+            process.exit(1);
+        } else {
+            throw err;
+        }
+    });
 ```
 
 ## License
