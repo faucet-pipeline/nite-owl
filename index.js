@@ -4,14 +4,7 @@ let chokidar = require("chokidar");
 let EventEmitter = require("events");
 let path = require("path");
 
-class TooManyFilesError extends Error {
-	constructor(...params) {
-		super(...params);
-		this.code = "ERR_TOO_MANY_FILES";
-	}
-};
-
-module.exports = (rootDirs, { delay = 50, suppressReporting }) => {
+module.exports = (rootDirs, { delay = 50, suppressReporting } = {}) => {
 	if(!rootDirs.pop) {
 		rootDirs = [rootDirs];
 	}
@@ -35,7 +28,7 @@ module.exports = (rootDirs, { delay = 50, suppressReporting }) => {
 			on("unlink", notify);
 	}).on("error", err => {
 		if(err.code === "ENOSPC") {
-			err = new TooManyFilesError("You are watching too many files");
+			err = new TooManyFilesError("you are watching too many files");
 		}
 
 		// Emit the error if someone is listening. Otherwise throw it.
@@ -82,4 +75,11 @@ function debounce(delay, fn) {
 			timer = null;
 		}, delay);
 	};
+};
+
+class TooManyFilesError extends Error {
+	constructor(...params) {
+		super(...params);
+		this.code = "ERR_TOO_MANY_FILES";
+	}
 };
