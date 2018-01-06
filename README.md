@@ -1,7 +1,7 @@
 # nite-owl
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/faucet-pipeline/nite-owl.svg)](https://greenkeeper.io/)
-[![Build Status](https://travis-ci.org/faucet-pipeline/nite-owl.svg?branch=master)](https://travis-ci.org/faucet-pipeline/nite-owl)
+[![build status](https://travis-ci.org/faucet-pipeline/nite-owl.svg?branch=master)](https://travis-ci.org/faucet-pipeline/nite-owl)
 
 You need to watch a directory for changes, but don't want to be notified all the
 time? Try nite-owl.
@@ -16,13 +16,14 @@ Using nite-owl basically comes down to this:
 ```js
 let watch = require("nite-owl");
 
-watch(myFavoriteDirectories).
+watch(myFavoriteDirectories). // either a single directory path or an array thereof
     on("edit", myFavoriteFunction).
     on("error", myErrorFunction);
 ```
 
-Now, whenever something about the files in `myFavoriteDirectory` changes, the
-`myFavoriteFunction` will be called with the paths of any files that changed.
+Whenever one of the files in any of `myFavoriteDirectory` changes,
+`myFavoriteFunction` will be invoked with the paths of all files which changed
+within a short interval.
 
 This notification is debounced: You only get notified at most once every 50
 milliseconds. You can adjust that value by providing a second argument to the
@@ -44,6 +45,14 @@ watch(myFavoriteDirectories).
             throw err;
         }
     });
+```
+
+The process can also be terminated programmatically:
+
+```js
+let watcher = watch(…);
+…
+watcher.terminate();
 ```
 
 ## License
