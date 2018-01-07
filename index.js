@@ -39,13 +39,13 @@ module.exports = (rootDirs, { delay = 50, suppressReporting } = {}) => {
 		}
 	});
 
-	return {
-		on(name, fn) {
-			emitter.on(name, fn);
-		},
-		terminate() {
+	let wrapper = {
+		terminate: function() {
 			watcher.close();
-		}
+		};
+	};
+	return new Proxy(emitter, {
+		get: (target, prop, receiver) => wrapper[prop] || target[prop];
 	};
 };
 
