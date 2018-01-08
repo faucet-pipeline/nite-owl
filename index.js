@@ -42,7 +42,10 @@ module.exports = (rootDirs, { delay = 50, suppressReporting } = {}) => {
 	let wrapper = {
 		terminate: function() {
 			watcher.close();
-		}
+		};
+	};
+	return new Proxy(emitter, {
+		get: (target, prop, receiver) => wrapper[prop] || target[prop];
 	};
 	return new Proxy(emitter, {
 		get: (target, prop, receiver) => wrapper[prop] || target[prop]
