@@ -1,6 +1,6 @@
 {
   "name": "nite-owl",
-  "version": "3.3.0",
+  "version": "3.3.1",
   "description": "A debounced EventEmitter that watches for file changes",
   "main": "index.js",
   "scripts": {
