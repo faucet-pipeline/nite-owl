@@ -75,11 +75,11 @@ function debounce(delay, fn) {
 			timer = null;
 		}, delay);
 	};
-};
+}
 
 class TooManyFilesError extends Error {
 	constructor(...params) {
 		super(...params);
 		this.code = "ERR_TOO_MANY_FILES";
 	}
-};
+}
