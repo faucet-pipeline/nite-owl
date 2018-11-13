@@ -19,7 +19,6 @@ module.exports = (rootDirs, { delay = 50, suppressReporting } = {}) => {
 	let emitter = new EventEmitter();
 
 	let notify = notifier(delay, filepaths => {
-		filepaths = Array.from(filepaths);
 		emitter.emit("edit", filepaths);
 	});
 	watcher.on("ready", _ => {
@@ -31,12 +30,10 @@ module.exports = (rootDirs, { delay = 50, suppressReporting } = {}) => {
 			err = new TooManyFilesError("you are watching too many files");
 		}
 
-		// Emit the error if someone is listening. Otherwise throw it.
-		if(emitter.listenerCount("error") > 0) {
-			emitter.emit("error", err);
-		} else {
+		if(emitter.listenerCount("error") === 0) {
 			throw err;
 		}
+		emitter.emit("error", err);
 	});
 
 	let wrapper = {
