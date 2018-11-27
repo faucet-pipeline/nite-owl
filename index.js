@@ -4,7 +4,7 @@ let chokidar = require("chokidar");
 let EventEmitter = require("events");
 let path = require("path");
 
-module.exports = (rootDirs, { delay = 50, suppressReporting } = {}) => {
+module.exports = (rootDirs, { delay = 50, reportSet, suppressReporting } = {}) => {
 	if(!rootDirs.pop) {
 		rootDirs = [rootDirs];
 	}
@@ -19,7 +19,7 @@ module.exports = (rootDirs, { delay = 50, suppressReporting } = {}) => {
 	let emitter = new EventEmitter();
 
 	let notify = notifier(delay, filepaths => {
-		emitter.emit("edit", filepaths);
+		emitter.emit("edit", reportSet ? filepaths : Array.from(filepaths));
 	});
 	watcher.on("ready", _ => {
 		watcher.on("add", notify).
@@ -27,7 +27,8 @@ module.exports = (rootDirs, { delay = 50, suppressReporting } = {}) => {
 			on("unlink", notify);
 	}).on("error", err => {
 		if(err.code === "ENOSPC") {
-			err = new TooManyFilesError("you are watching too many files");
+			err = new TooManyFilesError("you are watching too many files - " +
+					"try limiting the directories being watched");
 		}
 
 		if(emitter.listenerCount("error") === 0) {
