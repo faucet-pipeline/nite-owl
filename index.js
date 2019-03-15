@@ -4,6 +4,8 @@ let chokidar = require("chokidar");
 let EventEmitter = require("events");
 let path = require("path");
 
+let NORMALIZE_PATH = path.sep !== "/"; // typically indicates Windows
+
 module.exports = (rootDirs, { delay = 50, reportSet, suppressReporting } = {}) => {
 	if(!rootDirs.pop) {
 		rootDirs = [rootDirs];
@@ -14,7 +16,12 @@ module.exports = (rootDirs, { delay = 50, reportSet, suppressReporting } = {}) =
 		console.error("monitoring file system at" + separator + rootDirs.join(separator));
 	}
 
-	let patterns = rootDirs.map(dir => path.resolve(dir, "**"));
+	let patterns = rootDirs.map(dir => {
+		let pattern = path.resolve(dir, "**");
+		if(NORMALIZE_PATH) { // chokidar expects POSIX path separators
+			pattern.split(path.sep).join("/");
+		}
+	});
 	let watcher = chokidar.watch(patterns);
 	let emitter = new EventEmitter();
 
