@@ -18,9 +18,8 @@ module.exports = (rootDirs, { delay = 50, reportSet, suppressReporting } = {}) =
 
 	let patterns = rootDirs.map(dir => {
 		let pattern = path.resolve(dir, "**");
-		if(NORMALIZE_PATH) { // chokidar expects POSIX path separators
-			pattern.split(path.sep).join("/");
-		}
+		// chokidar expects POSIX path separators
+		return NORMALIZE_PATH ? pattern.split(path.sep).join("/") : pattern;
 	});
 	let watcher = chokidar.watch(patterns);
 	let emitter = new EventEmitter();
