@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/faucet-pipeline/nite-owl#readme",
   "dependencies": {
-    "chokidar": "^2.1.2"
+    "chokidar": "^3.0.0"
   },
   "devDependencies": {
     "eslint-config-fnd": "^1.6.0",
