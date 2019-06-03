@@ -23,7 +23,7 @@
     "node": ">=8"
   },
   "dependencies": {
-    "chokidar": "^3.0.0"
+    "chokidar": "^3.0.1"
   },
   "devDependencies": {
     "eslint-config-fnd": "^1.6.0",
