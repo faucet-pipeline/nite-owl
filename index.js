@@ -27,7 +27,7 @@ module.exports = (rootDirs, { delay = 50, reportSet, suppressReporting } = {}) =
 	let notify = notifier(delay, filepaths => {
 		emitter.emit("edit", reportSet ? filepaths : Array.from(filepaths));
 	});
-	watcher.on("ready", _ => {
+	watcher.on("ready", () => {
 		watcher.on("add", notify).
 			on("change", notify).
 			on("unlink", notify);
@@ -44,7 +44,7 @@ module.exports = (rootDirs, { delay = 50, reportSet, suppressReporting } = {}) =
 	});
 
 	let wrapper = {
-		terminate: function() {
+		terminate: () => {
 			watcher.close();
 		}
 	};
@@ -68,13 +68,12 @@ function notifier(delay, callback) {
 // adapted from uitil <https://github.com/FND/uitil>
 function debounce(delay, fn) {
 	let timer;
-	return function() {
-		let args = arguments;
+	return (...args) => {
 		if(timer) {
 			clearTimeout(timer);
 			timer = null;
 		}
-		timer = setTimeout(_ => {
+		timer = setTimeout(() => {
 			fn.apply(null, args);
 			timer = null;
 		}, delay);
