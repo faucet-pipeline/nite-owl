@@ -55,13 +55,15 @@ module.exports = (rootDirs, { delay = 50, reportSet, suppressReporting } = {}) =
 
 function notifier(delay, callback) {
 	let files = new Set();
-	let notify = debounce(delay, callback);
+	let notify = debounce(delay, () => {
+		callback(files);
+		files = new Set();
+	});
 
 	// NB: potentially invoked multiple times for a single change
 	return filepath => {
 		files.add(filepath);
-		notify(files);
-		files = new Set();
+		notify();
 	};
 }
 
