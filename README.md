@@ -2,7 +2,6 @@
 
 [![package version](https://img.shields.io/npm/v/nite-owl.svg?style=flat)](https://www.npmjs.com/package/nite-owl)
 [![build status](https://github.com/faucet-pipeline/nite-owl/workflows/tests/badge.svg)](https://github.com/faucet-pipeline/nite-owl/actions)
-[![Greenkeeper badge](https://badges.greenkeeper.io/faucet-pipeline/nite-owl.svg)](https://greenkeeper.io/)
 
 You need to watch a directory for changes, but don't want to be notified all the
 time? Try nite-owl.
